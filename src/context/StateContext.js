@@ -6,9 +6,13 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
     const [showCart, setShowCart] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-    const [totalPrice, setTotalPrice] = useState();
+    const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
+
+    let foundProduct;
+    let index;
+    //index of the property we want to update
 
     const onAdd = (product, quantity) => {
         const checkProductInCart = cartItems.find(
@@ -40,6 +44,58 @@ export const StateContext = ({ children }) => {
         toast.success(`${qty} ${product.name} added to the cart!`);
     };
 
+    const onRemove = (product) => {
+        foundProduct = cartItems.find((item) => item._id === product._id);
+        const newcartItems = cartItems.filter(
+            (item) => item._id !== product._id
+        );
+
+        setTotalPrice(
+            (prevTotalPr) =>
+                prevTotalPr - foundProduct.price * foundProduct.quantity
+        );
+        setTotalQuantities(
+            (prevTotalQt) => prevTotalQt - foundProduct.quantity
+        );
+        setCartItems(newcartItems);
+    };
+
+    const toggleCartItemQuantity = (id, value) => {
+        foundProduct = cartItems.find((item) => item._id === id);
+        index = cartItems.findIndex((product) => product._id === id);
+        const existingcartItem = cartItems[index];
+        let updatedCartItems = [...cartItems];
+
+        if (value === "increment") {
+            const updatedItem = {
+                ...existingcartItem,
+                quantity: foundProduct.quantity + 1,
+            };
+            updatedCartItems[index] = updatedItem;
+
+            setCartItems(updatedCartItems);
+
+            setTotalPrice(
+                (prevtotalPrice) => prevtotalPrice + foundProduct.price
+            );
+            setTotalQuantities((prevTotalQty) => prevTotalQty + 1);
+        } else if (value === "dec") {
+            if (foundProduct.quantity > 1) {
+                const updatedItem = {
+                    ...existingcartItem,
+                    quantity: foundProduct.quantity - 1,
+                };
+                updatedCartItems[index] = updatedItem;
+
+                setCartItems(updatedCartItems);
+                setTotalPrice(
+                    (prevtotalPrice) => prevtotalPrice - foundProduct.price
+                );
+                setTotalQuantities((prevTotalQty) => prevTotalQty - 1);
+            }
+        }
+    };
+
     const incQty = () => {
         setQty((prev) => prev + 1);
     };
@@ -64,6 +120,8 @@ export const StateContext = ({ children }) => {
                 incQty,
                 decQty,
                 onAdd,
+                toggleCartItemQuantity,
+                onRemove,
             }}
         >
             {children}
