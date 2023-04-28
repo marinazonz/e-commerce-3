@@ -27,6 +27,7 @@ a {
 }
 .layout {
     padding: 10px;
+    width: 100%;
 }
 
 .navbar-container {
@@ -67,7 +68,7 @@ a {
     }
 }
 
-span.text-red {
+.text-red span {
     -webkit-text-stroke: 1px #f02d34;
     margin-left: 6px;
 }
@@ -295,6 +296,7 @@ span.text-red {
     align-items: center;
     gap: 10px;
     justify-content: center;
+    width: 100%;
 }
 .footer-container .icons {
     font-size: 30px;
@@ -545,7 +547,7 @@ span.text-red {
     text-align: center;
     margin: 50px;
     color: #324d67;
-
+    width: 100%;
     font-size: 28px;
 }
 .maylike-products-container {
@@ -676,15 +678,23 @@ span.text-red {
         width: 350px;
         height: 350px;
     }
+    .cart-wrapper {
+        width: 100%;
+        height: 100vh;
+    }
     .cart-container {
-        width: 415px;
+        width: 100%;
         padding: 4px;
+        height: 100vh;
     }
     .cart-heading {
         margin-top: 35px;
     }
     .product-container {
         margin-top: 10px;
+    }
+    .image-container {
+        padding-right: 1rem;
     }
     .product {
         padding: 20px 5px;
@@ -701,6 +711,16 @@ span.text-red {
     }
     .product-detail-container {
         margin: 20px;
+        width: 100%;
+    }
+    .maylike-products-wrapper {
+        width: 100%;
+    }
+    .maylike-products-wrapper h2 {
+        font-size: 24px;
+    }
+    .main-container {
+        width: 100%;
     }
 
     .item-desc .flex {
