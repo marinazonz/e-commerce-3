@@ -4,6 +4,6 @@ using:
 <br>
 Next.js
 <br>
-contant managment with Sanity
+content managment with Sanity
 <br>
 payments managment with Stripe
